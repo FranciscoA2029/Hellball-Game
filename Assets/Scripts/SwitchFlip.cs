@@ -6,6 +6,8 @@ public class SwitchFlip : MonoBehaviour
     
     Rigidbody2D flipBody;
     InputAction right;
+    [SerializeField] float rotationForce;
+    [SerializeField] float rotationSpeedLimit;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,15 +19,13 @@ public class SwitchFlip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //flipBody.AddTorque(60f, ForceMode2D.Impulse);
-        //flipBody.AddForce(transform.up * 800);
-        //if (Input.GetKey(KeyCode.D)) Debug.Log("Tried Flipping"); Testing stuff
+
         
-        if (right.IsPressed())
+        if (Mathf.Abs(flipBody.angularVelocity) < rotationSpeedLimit)
         {
             Debug.Log("Flipping");
-            flipBody.AddTorque(100f, ForceMode2D.Impulse);
-            //flipBody.AddForce(transform.up * 8000);
+            flipBody.AddTorque(rotationForce, ForceMode2D.Impulse);
         }
+        
     }
 }
