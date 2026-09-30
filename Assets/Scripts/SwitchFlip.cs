@@ -23,7 +23,7 @@ public class SwitchFlip : MonoBehaviour
         
         if (Mathf.Abs(flipBody.angularVelocity) < rotationSpeedLimit)
         {
-            Debug.Log("Flipping");
+            //Debug.Log("Flipping");
             flipBody.AddTorque(rotationForce, ForceMode2D.Impulse);
         }
         

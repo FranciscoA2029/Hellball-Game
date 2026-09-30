@@ -10,35 +10,38 @@ public class BallScript : MonoBehaviour
     InputAction right;
     InputAction left;
     InputAction reset;
-
-    float startPositionx;
-    float startPositiony;
-    float startPositionz;
+    
     [SerializeField] float ballGravity;
     public int Score;
+    public float randomRange;
     
     public float wallBounceStrength, spinnerBounceStrength, flierBounceStrength, dullerBounceStrength;
     
     void Start()
     {
-        
+        randomRange = Random.Range(-5f, 5f);
         Score = 0;
         myBody = GetComponent<Rigidbody2D>();
+        
+        //Playtesting Controls
         jump = InputSystem.actions.FindAction("Jump");
         right = InputSystem.actions.FindAction("Right1");
         left = InputSystem.actions.FindAction("Left1");
+        
+        //Reset and Initial Launch
         reset = InputSystem.actions.FindAction("Reset");
-        myBody.AddForce(new Vector2(-1f, 5000f));
+        myBody.AddForce(new Vector2(randomRange, 5000f));
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // The actual Playtest functions and stuff.
         if (jump.IsPressed()) myBody.AddForce(new Vector2(0f, 100f));
         else if (right.IsPressed()) myBody.AddForce(new Vector2(30f, 0f));
         else if (left.IsPressed()) myBody.AddForce(new Vector2(-30f, 0f));
-
+        
         myBody.AddForce(new Vector2(0f, -ballGravity));
         
         if (reset.WasReleasedThisFrame())
@@ -47,7 +50,7 @@ public class BallScript : MonoBehaviour
             //transform.Translate(transform.position.x - startPosition.);
         }
 
-        if (transform.position.y < -10) Score = 0;
+        if (transform.position.y < -15) Score = 0;
     }
 
     void OnCollisionEnter2D(Collision2D other)
